@@ -33,6 +33,7 @@ COPY . .
 
 RUN pip3 install --no-cache-dir -r requirements.txt
 
+RUN chmod 755 /app/chromedriver
 
 # Make the entrypoint executable
 RUN chmod +x entrypoint.sh
