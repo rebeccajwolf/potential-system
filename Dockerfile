@@ -10,6 +10,8 @@ WORKDIR /app
 RUN chmod 777 /app
 
 RUN apk update && apk add --no-cache bash \
+  build-base \
+  linux-headers \
   curl \
   coreutils \
   gtk+2.0 \
