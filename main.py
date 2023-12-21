@@ -13,6 +13,7 @@ from datetime import datetime
 from pathlib import Path
 from pytz import timezone
 import datetime as dt1
+from pyvirtualdisplay import Display
 
 import pandas as pd
 import psutil
@@ -35,7 +36,8 @@ def main():
     loadedAccounts = setupAccounts()
     # Register the cleanup function to be called on script exit
     atexit.register(cleanupChromeProcesses)
-
+    if args.virtual_display:
+        createDisplay()
     # # Load previous day's points data
     # previous_points_data = load_previous_points_data()
     if args.everyday:
@@ -161,6 +163,10 @@ def argumentParser() -> argparse.Namespace:
     parser.add_argument(
         "-g", "--geo", type=str, default=None, help="Optional: Geolocation (ex: US)"
     )
+    parser.add_argument("--virtual-display",
+        help="Use PyVirtualDisplay (intended for Raspberry Pi users).",
+        action="store_true",
+        required=False)
     parser.add_argument(
         "-p",
         "--proxy",
@@ -367,6 +373,13 @@ def wait():
         time.sleep((range) * 3600)
     return
 
+def createDisplay():
+    """Create Display"""
+    try:
+        display = Display(visible=False, size=(1920, 1080))
+        display.start()
+    except Exception as e:
+        logging.exception(f"{e.__class__.__name__}: {e}")
 
 if __name__ == "__main__":
     main()

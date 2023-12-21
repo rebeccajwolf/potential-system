@@ -10,3 +10,4 @@ psutil
 flask
 gunicorn
 pytz
+pyvirtualdisplay
