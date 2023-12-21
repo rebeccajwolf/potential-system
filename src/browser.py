@@ -81,7 +81,7 @@ class Browser:
             driver_executable_path = "/usr/lib/chromium/chromedriver",
             options=options,
             seleniumwire_options=seleniumwireOptions,
-            user_data_dir=self.userDataDir.as_posix(),
+            # user_data_dir=self.userDataDir.as_posix(),
         )
 
         seleniumLogger = logging.getLogger("seleniumwire")
