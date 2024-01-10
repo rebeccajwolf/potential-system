@@ -7,10 +7,10 @@ from pathlib import Path
 from typing import Any
 
 import ipapi
-import seleniumwire.undetected_chromedriver as webdriver
+import undetected_chromedriver as webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 from src.userAgentGenerator import GenerateUserAgent
 from src.utils import Utils
 
@@ -65,30 +65,19 @@ class Browser:
         options.add_argument("--start-maximized")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
-
-        options.add_argument("--ignore-certificate-errors")
-        options.add_argument("--ignore-certificate-errors-spki-list")
-        options.add_argument("--ignore-ssl-errors")
-
-        seleniumwireOptions: dict[str, Any] = {"verify_ssl": False}
-
-        if self.proxy:
-            seleniumwireOptions["proxy"] = {
-                "http": self.proxy,
-                "https": self.proxy,
-                "no_proxy": "localhost,127.0.0.1",
-            }
+        prefs = {"profile.default_content_setting_values.geolocation" :2,
+                "profile.default_content_setting_values.notifications": 2,
+                "credentials_enable_service": False,
+                "profile.password_manager_enabled": False}
+        options.add_experimental_option("prefs", prefs)
 
         driver = webdriver.Chrome(
-            service=ChromeService(ChromeDriverManager().install()),
+            driver_executable_path=ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(),
             options=options,
-            seleniumwire_options=seleniumwireOptions,
+            use_subprocess=False,
             user_data_dir=self.userDataDir.as_posix(),
             suppress_welcome = True,
         )
-
-        seleniumLogger = logging.getLogger("seleniumwire")
-        seleniumLogger.setLevel(logging.ERROR)
 
         if self.browserConfig.get("sizes"):
             deviceHeight = self.browserConfig["sizes"]["height"]
