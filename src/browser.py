@@ -73,8 +73,8 @@ class Browser:
         driver = webdriver.Chrome(
             driver_executable_path="/usr/bin/chromedriver",
             options=options,
-            # use_subprocess=False,
-            user_data_dir=self.userDataDir.as_posix(),
+            use_subprocess=False,
+            # user_data_dir=self.userDataDir.as_posix(),
             suppress_welcome = True,
         )
 
