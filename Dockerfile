@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM python:3.9-slim
 
 # Set default environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -15,8 +15,7 @@ RUN apt-get update && apt-get install -y \
   cron \
   wget \
   gpg \
-  python3 \
-  python3-pip \
+  python3-tkinter \
   xvfb \
   gtk2-engines-pixbuf \
   && rm -rf /var/lib/apt/lists/* \
@@ -31,7 +30,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
     && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 RUN apt-get update && apt-get -y install google-chrome-stable && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install -U pip
+RUN pip install -U pip
 
 
 # Add often-changed files in order to cache above
