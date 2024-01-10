@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
   cron \
   wget \
   gpg \
-  python3-tkinter \
   xvfb \
   gtk2-engines-pixbuf \
   && rm -rf /var/lib/apt/lists/* \
