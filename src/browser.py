@@ -9,7 +9,6 @@ from typing import Any
 import ipapi
 import seleniumwire.undetected_chromedriver as webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
-from webdriver_manager.chrome import ChromeDriverManager
 from src.userAgentGenerator import GenerateUserAgent
 from src.utils import Utils
 
@@ -79,7 +78,6 @@ class Browser:
             }
 
         driver = webdriver.Chrome(
-            driver_executable_path = ChromeDriverManager().install(),
             options=options,
             seleniumwire_options=seleniumwireOptions,
             user_data_dir=self.userDataDir.as_posix(),
