@@ -1,4 +1,4 @@
-FROM python:3.9-alpine3.16
+FROM python:3.9-alpine3.19
 
 # Set default environment variables
 ENV DEBIAN_FRONTEND=noninteractive
