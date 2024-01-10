@@ -48,7 +48,6 @@ def main():
         createDisplay()
     # # Load previous day's points data
     # previous_points_data = load_previous_points_data()
-    time.sleep(180)
     if args.everyday:
         for currentAccount in loadedAccounts:
             while True:

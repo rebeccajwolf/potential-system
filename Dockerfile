@@ -1,4 +1,4 @@
-FROM python
+FROM python:3.9-alpine3.16
 
 # Set default environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -8,14 +8,20 @@ ENV PYTHONUNBUFFERED=1
 # Create working directory and relevant dirs
 WORKDIR /app
 RUN chmod 777 /app
-  
-RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
 
-# Download and install Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \ 
-    && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
-RUN apt-get update && apt-get -y install google-chrome-stable xvfb && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk add --no-cache bash \
+  curl \
+  coreutils \
+  gtk+2.0 \
+  gdk-pixbuf \
+  python3-tkinter \
+  tzdata \
+  xvfb \
+  zlib-dev \
+  chromium-swiftshader \
+  chromium-chromedriver
+
+RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
 
 RUN pip install -U pip
 
@@ -31,6 +37,6 @@ RUN chmod +x entrypoint.sh
 
 # Set the entrypoint to our entrypoint.sh
 
-CMD ["bash", "/app/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 #END
