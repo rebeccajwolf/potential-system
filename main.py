@@ -71,6 +71,7 @@ def main():
                 except Exception as e:
                     # notifier.send("⚠️ Error occurred, please check the log", currentAccount)
                     logging.exception(f"{e.__class__.__name__}: {e}")
+                    cleanupChromeProcesses()
                     continue
         while True:
             wait()
