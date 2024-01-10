@@ -9,9 +9,7 @@ from typing import Any
 import ipapi
 import undetected_chromedriver as webdriver
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.core.os_manager import ChromeType
 from src.userAgentGenerator import GenerateUserAgent
 from src.utils import Utils
 
@@ -73,7 +71,7 @@ class Browser:
         options.add_experimental_option("prefs", prefs)
 
         driver = webdriver.Chrome(
-            service=ChromeService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),
+            driver_executable_path=ChromeDriverManager().install(),
             options=options,
             use_subprocess=False,
             user_data_dir=self.userDataDir.as_posix(),
