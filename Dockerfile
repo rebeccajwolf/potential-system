@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM python
 
 # Set default environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -8,25 +8,6 @@ ENV PYTHONUNBUFFERED=1
 # Create working directory and relevant dirs
 WORKDIR /app
 RUN chmod 777 /app
-
-RUN apt-get update && apt-get install -y \
-  tzdata \
-  procps \
-  cron \
-  wget \
-  gpg \
-  python3 \
-  python3-pip \
-  xvfb \
-  xfonts-cyrillic \
-  xfonts-100dpi \
-  xfonts-75dpi \
-  xfonts-base \
-  xfonts-scalable \
-  gtk2-engines-pixbuf \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm -rf /etc/cron.*/*
-
   
 RUN ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
