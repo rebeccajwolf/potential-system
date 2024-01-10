@@ -11,3 +11,4 @@ flask
 gunicorn
 pytz
 pyvirtualdisplay
+webdriver-manager
