@@ -18,6 +18,8 @@ RUN apk update && apk add --no-cache bash \
   tzdata \
   xvfb \
   zlib-dev \
+  build-base \
+  linux-headers \
   chromium \
   chromium-chromedriver
 
