@@ -57,7 +57,7 @@ class Login:
             self.browser.username
         )
         self.webdriver.find_element(By.ID, "idSIButton9").click()
-
+        time.sleep(7)
         try:
             self.enterPassword(self.browser.password)
         except Exception:  # pylint: disable=broad-except
