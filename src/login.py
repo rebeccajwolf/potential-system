@@ -57,8 +57,9 @@ class Login:
             self.browser.username
         )
         self.webdriver.find_element(By.ID, "idSIButton9").click()
-        time.sleep(7)
         try:
+            self.utils.waitUntilVisible(By.ID, "loginHeader", 10)
+            time.sleep(3)
             self.enterPassword(self.browser.password)
         except Exception:  # pylint: disable=broad-except
             logging.error("[LOGIN] " + "2FA Code required !")
@@ -86,8 +87,8 @@ class Login:
         )
 
     def enterPassword(self, password):
-        self.utils.waitUntilClickable(By.NAME, "passwd", 10)
-        self.utils.waitUntilClickable(By.ID, "idSIButton9", 10)
+        # self.utils.waitUntilClickable(By.NAME, "passwd", 10)
+        # self.utils.waitUntilClickable(By.ID, "idSIButton9", 10)
         # browser.webdriver.find_element(By.NAME, "passwd").send_keys(password)
         # If password contains special characters like " ' or \, send_keys() will not work
         password = password.replace("\\", "\\\\").replace('"', '\\"')
