@@ -386,7 +386,7 @@ def wait():
 def createDisplay():
     """Create Display"""
     try:
-        display = Display(visible=False, size=(1920, 1080))
+        display = Display(visible=False, size=(800, 600), color_depth=24)
         display.start()
     except Exception as e:
         logging.exception(f"{e.__class__.__name__}: {e}")
