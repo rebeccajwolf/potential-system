@@ -71,7 +71,6 @@ class Browser:
         options.add_experimental_option("prefs", prefs)
 
         driver = webdriver.Chrome(
-            driver_executable_path=ChromeDriverManager().install(),
             options=options,
             use_subprocess=False,
             user_data_dir=self.userDataDir.as_posix(),
