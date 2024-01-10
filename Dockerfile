@@ -25,6 +25,9 @@ RUN apk update && apk add --no-cache bash \
 
 RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
 
+ENV CHROME_BIN=/usr/bin/chromium-browser \
+    CHROME_PATH=/usr/lib/chromium/
+
 RUN pip install -U pip
 
 
