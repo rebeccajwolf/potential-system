@@ -18,7 +18,15 @@ from pyvirtualdisplay import Display
 import pandas as pd
 import psutil
 
-from src import Browser, DailySet, Login, MorePromotions, PunchCards, Searches
+from src import (
+    Browser,
+    DailySet,
+    Login,
+    MorePromotions,
+    PunchCards,
+    Searches,
+    VersusGame,
+)
 from src.loggingColoredFormatter import ColoredFormatter
 from src.notifier import Notifier
 from src.utils import Utils
@@ -267,6 +275,7 @@ def executeBot(currentAccount, notifier: Notifier, args: argparse.Namespace):
         DailySet(desktopBrowser).completeDailySet()
         PunchCards(desktopBrowser).completePunchCards()
         MorePromotions(desktopBrowser).completeMorePromotions()
+        VersusGame(desktopBrowser).completeVersusGame()
         (
             remainingSearches,
             remainingSearchesM,

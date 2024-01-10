@@ -17,13 +17,13 @@ class Login:
     def login(self):
         logging.info("[LOGIN] " + "Logging-in...")
         self.webdriver.get(
-            "https://login.live.com/login.srf"
+            "https://rewards.bing.com/Signin/"
         )  # changed site to allow bypassing when M$ blocks access to login.live.com randomly
         alreadyLoggedIn = False
         while True:
             try:
                 self.utils.waitUntilVisible(
-                    By.CSS_SELECTOR, 'html[data-role-name="MeePortal"]', 0.1
+                    By.CSS_SELECTOR, 'html[data-role-name="RewardsPortal"]', 0.1
                 )
                 alreadyLoggedIn = True
                 break

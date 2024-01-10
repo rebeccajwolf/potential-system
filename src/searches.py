@@ -19,10 +19,12 @@ class Searches:
         self.webdriver = browser.webdriver
 
     def getGoogleTrends(self, wordsCount: int) -> list:
+        # Function to retrieve Google Trends search terms
         searchTerms: list[str] = []
         i = 0
         while len(searchTerms) < wordsCount:
             i += 1
+            # Fetching daily trends from Google Trends API
             r = requests.get(
                 f'https://trends.google.com/trends/api/dailytrends?hl={self.browser.localeLang}&ed={(date.today() - timedelta(days=i)).strftime("%Y%m%d")}&geo={self.browser.localeGeo}&ns=15'
             )
@@ -40,6 +42,7 @@ class Searches:
         return searchTerms
 
     def getRelatedTerms(self, word: str) -> list:
+        # Function to retrieve related terms from Bing API
         try:
             r = requests.get(
                 f"https://api.bing.com/osjson.aspx?query={word}",
@@ -50,6 +53,7 @@ class Searches:
             return []
 
     def bingSearches(self, numberOfSearches: int, pointsCounter: int = 0):
+        # Function to perform Bing searches
         logging.info(
             f"[BING] Starting {self.browser.browserType.capitalize()} Edge Bing searches..."
         )
@@ -78,6 +82,7 @@ class Searches:
         return pointsCounter
 
     def bingSearch(self, word: str):
+        # Function to perform a single Bing search
         i = 0
 
         while True:
@@ -87,7 +92,7 @@ class Searches:
                 searchbar.clear()
                 searchbar.send_keys(word)
                 searchbar.submit()
-                time.sleep(Utils.randomSeconds(10, 15))
+                time.sleep(Utils.randomSeconds(100, 180))
 
                 # Scroll down after the search (adjust the number of scrolls as needed)
                 for _ in range(3):  # Scroll down 3 times
@@ -95,7 +100,7 @@ class Searches:
                         "window.scrollTo(0, document.body.scrollHeight);"
                     )
                     time.sleep(
-                        Utils.randomSeconds(5, 10)
+                        Utils.randomSeconds(7, 10)
                     )  # Random wait between scrolls
 
                 return self.browser.utils.getBingAccountPoints()
