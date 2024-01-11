@@ -61,9 +61,9 @@ class Browser:
         options.headless = self.headless
         options.add_argument(f"--lang={self.localeLang}")
         options.add_argument("--log-level=3")
-        options.add_argument("--incognito")
-        options.add_argument("--start-maximized")
+        options.add_argument("--disable-gpu")
         options.add_argument("--no-sandbox")
+        options.add_argument("--start-maximized")
         options.add_argument("--disable-dev-shm-usage")
         prefs = {"profile.default_content_setting_values.geolocation" :2,
                 "profile.default_content_setting_values.notifications": 2,
@@ -75,7 +75,7 @@ class Browser:
             driver_executable_path="/usr/bin/chromedriver",
             options=options,
             use_subprocess=False,
-            # user_data_dir=self.userDataDir.as_posix(),
+            user_data_dir=self.userDataDir.as_posix(),
             suppress_welcome = True,
         )
 
@@ -87,8 +87,8 @@ class Browser:
                 deviceHeight = random.randint(568, 1024)
                 deviceWidth = random.randint(320, min(576, int(deviceHeight * 0.7)))
             else:
-                deviceWidth = random.randint(1024, 2560)
-                deviceHeight = random.randint(768, min(1440, int(deviceWidth * 0.8)))
+                deviceWidth = random.randint(1024, 1920)
+                deviceHeight = random.randint(768, min(1080, int(deviceWidth * 0.8)))
             self.browserConfig["sizes"] = {
                 "height": deviceHeight,
                 "width": deviceWidth,
