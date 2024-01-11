@@ -61,9 +61,6 @@ class Browser:
         options.headless = self.headless
         options.add_argument(f"--lang={self.localeLang}")
         options.add_argument("--log-level=3")
-        options.add_argument("--disable-gpu")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--start-maximized")
         options.add_argument("--disable-dev-shm-usage")
         prefs = {"profile.default_content_setting_values.geolocation" :2,
                 "profile.default_content_setting_values.notifications": 2,
