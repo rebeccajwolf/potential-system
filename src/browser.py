@@ -65,7 +65,11 @@ class Browser:
         options.add_argument("--log-level=3")
         options.add_argument("--incognito")
         options.add_argument("--disable-popup-blocking")
+        options.add_argument("--disable-setuid-sandbox")
         options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--ignore-certificate-errors")
+        options.add_argument("--ignore-certificate-errors-spki-list")
+        options.add_argument("--ignore-ssl-errors")
         prefs = {"profile.default_content_setting_values.geolocation" :2,
                 "profile.default_content_setting_values.notifications": 2,
                 "credentials_enable_service": False,
