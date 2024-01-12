@@ -60,6 +60,8 @@ class Browser:
         options = webdriver.ChromeOptions()
         options.headless = self.headless
         options.add_argument(f"--lang={self.localeLang}")
+        options.add_argument("--user-agent=" + self.userAgent)
+        options.add_argument("--disable-features=UserAgentClientHint")
         options.add_argument("--log-level=3")
         options.add_argument("--incognito")
         options.add_argument("--disable-popup-blocking")
@@ -78,69 +80,69 @@ class Browser:
             suppress_welcome = True,
         )
 
-        if self.browserConfig.get("sizes"):
-            deviceHeight = self.browserConfig["sizes"]["height"]
-            deviceWidth = self.browserConfig["sizes"]["width"]
-        else:
-            if self.mobile:
-                deviceHeight = random.randint(568, 1024)
-                deviceWidth = random.randint(320, min(576, int(deviceHeight * 0.7)))
-            else:
-                deviceWidth = random.randint(1024, 1920)
-                deviceHeight = random.randint(768, min(1080, int(deviceWidth * 0.8)))
-            self.browserConfig["sizes"] = {
-                "height": deviceHeight,
-                "width": deviceWidth,
-            }
-            Utils.saveBrowserConfig(self.userDataDir, self.browserConfig)
+        # if self.browserConfig.get("sizes"):
+        #     deviceHeight = self.browserConfig["sizes"]["height"]
+        #     deviceWidth = self.browserConfig["sizes"]["width"]
+        # else:
+        #     if self.mobile:
+        #         deviceHeight = random.randint(568, 1024)
+        #         deviceWidth = random.randint(320, min(576, int(deviceHeight * 0.7)))
+        #     else:
+        #         deviceWidth = random.randint(1024, 1920)
+        #         deviceHeight = random.randint(768, min(1080, int(deviceWidth * 0.8)))
+        #     self.browserConfig["sizes"] = {
+        #         "height": deviceHeight,
+        #         "width": deviceWidth,
+        #     }
+        #     Utils.saveBrowserConfig(self.userDataDir, self.browserConfig)
 
-        if self.mobile:
-            screenHeight = deviceHeight + 146
-            screenWidth = deviceWidth
-        else:
-            screenWidth = deviceWidth + 55
-            screenHeight = deviceHeight + 151
+        # if self.mobile:
+        #     screenHeight = deviceHeight + 146
+        #     screenWidth = deviceWidth
+        # else:
+        #     screenWidth = deviceWidth + 55
+        #     screenHeight = deviceHeight + 151
 
-        logging.info(f"Screen size: {screenWidth}x{screenHeight}")
-        logging.info(f"Device size: {deviceWidth}x{deviceHeight}")
+        # logging.info(f"Screen size: {screenWidth}x{screenHeight}")
+        # logging.info(f"Device size: {deviceWidth}x{deviceHeight}")
 
-        if self.mobile:
-            driver.execute_cdp_cmd(
-                "Emulation.setTouchEmulationEnabled",
-                {
-                    "enabled": True,
-                },
-            )
+        # if self.mobile:
+        #     driver.execute_cdp_cmd(
+        #         "Emulation.setTouchEmulationEnabled",
+        #         {
+        #             "enabled": True,
+        #         },
+        #     )
 
-        driver.execute_cdp_cmd(
-            "Emulation.setDeviceMetricsOverride",
-            {
-                "width": deviceWidth,
-                "height": deviceHeight,
-                "deviceScaleFactor": 0,
-                "mobile": self.mobile,
-                "screenWidth": screenWidth,
-                "screenHeight": screenHeight,
-                "positionX": 0,
-                "positionY": 0,
-                "viewport": {
-                    "x": 0,
-                    "y": 0,
-                    "width": deviceWidth,
-                    "height": deviceHeight,
-                    "scale": 1,
-                },
-            },
-        )
+        # driver.execute_cdp_cmd(
+        #     "Emulation.setDeviceMetricsOverride",
+        #     {
+        #         "width": deviceWidth,
+        #         "height": deviceHeight,
+        #         "deviceScaleFactor": 0,
+        #         "mobile": self.mobile,
+        #         "screenWidth": screenWidth,
+        #         "screenHeight": screenHeight,
+        #         "positionX": 0,
+        #         "positionY": 0,
+        #         "viewport": {
+        #             "x": 0,
+        #             "y": 0,
+        #             "width": deviceWidth,
+        #             "height": deviceHeight,
+        #             "scale": 1,
+        #         },
+        #     },
+        # )
 
-        driver.execute_cdp_cmd(
-            "Emulation.setUserAgentOverride",
-            {
-                "userAgent": self.userAgent,
-                "platform": self.userAgentMetadata["platform"],
-                "userAgentMetadata": self.userAgentMetadata,
-            },
-        )
+        # driver.execute_cdp_cmd(
+        #     "Emulation.setUserAgentOverride",
+        #     {
+        #         "userAgent": self.userAgent,
+        #         "platform": self.userAgentMetadata["platform"],
+        #         "userAgentMetadata": self.userAgentMetadata,
+        #     },
+        # )
 
         return driver
 
