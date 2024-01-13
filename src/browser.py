@@ -80,7 +80,7 @@ class Browser:
             driver_executable_path="chromedriver",
             options=options,
             use_subprocess=False,
-            # user_data_dir=self.userDataDir.as_posix(),
+            user_data_dir=self.userDataDir.as_posix(),
             suppress_welcome = True,
         )
 
